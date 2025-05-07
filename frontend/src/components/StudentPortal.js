@@ -73,57 +73,67 @@ const StudentPortal = () => {
   };
 
   return (
-    <div className="min-h-screen p-6 bg-white">
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h2 className="text-xl font-semibold">{student.name}</h2>
-          <p>{student.dormName}</p>
-          <p>ID: {student.studentId}</p>
-        </div>
-        <button
-          onClick={handleSignOut}
-          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-        >
-          Sign Out
-        </button>
-      </div>
-
-      <div className="mb-6">
-        <p className="text-lg font-medium mb-2">Do you want to take token?</p>
-        <div className="space-x-4">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-8 font-sans text-foreground">
+      <div className="bg-foreground rounded-3xl shadow-xl max-w-4xl w-full p-10">
+        <header className="flex justify-between items-center mb-10">
+          <div>
+            <h2 className="text-3xl font-bold border border-green-900 px-3 py-1 rounded-full inline-block text-shadow-deep-green">{student.name}</h2>
+            <p className="text-[#262840]">{student.dormName}</p>
+            <p className="text-[#262840]">ID: {student.studentId}</p>
+          </div>
           <button
-            onClick={handleYes}
-            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+            onClick={handleSignOut}
+            className="bg-[#274B07] px-6 py-2 rounded-xl hover:bg-primary-hover shadow-lg transition text-white"
           >
-            YES
+            Sign Out
           </button>
-          <button
-            onClick={handleNo}
-            className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
-          >
-            NO
-          </button>
-        </div>
-        {message && <p className="mt-2 text-red-600">{message}</p>}
-      </div>
+        </header>
 
-      <div className="grid grid-cols-4 gap-4 text-center">
-        <div className="p-4 border rounded">
-          <h3 className="font-semibold mb-2">Meal Type</h3>
-          <p>{tokenInfo.mealType || 'N/A'}</p>
-        </div>
-        <div className="p-4 border rounded">
-          <h3 className="font-semibold mb-2">Used Tokens</h3>
-          <p>{tokenInfo.usedTokens}</p>
-        </div>
-        <div className="p-4 border rounded">
-          <h3 className="font-semibold mb-2">Remaining Tokens</h3>
-          <p>{tokenInfo.remainingTokens}</p>
-        </div>
-        <div className="p-4 border rounded">
-          <h3 className="font-semibold mb-2">Total Tokens</h3>
-          <p>{tokenInfo.totalTokens}</p>
-        </div>
+        <section className="mb-10">
+          <p className="text-xl font-semibold mb-4">Do you want to take token?</p>
+          <div className="space-x-8">
+            <button
+              onClick={handleYes}
+              className="bg-[#274B07] px-8 py-3 rounded-xl hover:bg-primary-hover shadow-lg transition text-white font-semibold"
+            >
+              YES
+            </button>
+            <button
+              onClick={handleNo}
+              className="bg-cream px-8 py-3 rounded-xl hover:bg-milkywhite shadow-lg transition text-background font-semibold"
+            >
+              NO
+            </button>
+          </div>
+          {message && (
+            <p
+              className={`mt-6 font-semibold ${
+                message === 'Token limit reached for this week' ? 'text-red-600' : 'text-neongreen'
+              }`}
+            >
+              {message}
+            </p>
+          )}
+        </section>
+
+        <section className="grid grid-cols-4 gap-8 text-center">
+          <div className="bg-cream rounded-xl p-6 shadow-md">
+            <h3 className="font-semibold text-[#274B07] mb-3">Meal Type</h3>
+            <p className="text-background">{tokenInfo.mealType || 'N/A'}</p>
+          </div>
+          <div className="bg-cream rounded-xl p-6 shadow-md">
+            <h3 className="font-semibold text-[#274B07] mb-3">Used Tokens</h3>
+            <p className="text-background">{tokenInfo.usedTokens}</p>
+          </div>
+          <div className="bg-cream rounded-xl p-6 shadow-md">
+            <h3 className="font-semibold text-[#274B07] mb-3">Remaining Tokens</h3>
+            <p className="text-background">{tokenInfo.remainingTokens}</p>
+          </div>
+          <div className="bg-cream rounded-xl p-6 shadow-md">
+            <h3 className="font-semibold text-[#274B07] mb-3">Total Tokens</h3>
+            <p className="text-background">{tokenInfo.totalTokens}</p>
+          </div>
+        </section>
       </div>
     </div>
   );

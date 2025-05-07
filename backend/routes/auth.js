@@ -1,3 +1,4 @@
+  
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
@@ -58,6 +59,58 @@ router.post('/signin', async (req, res) => {
 
   } catch (err) {
     console.error('Signin error:', err);
+    res.json({ success: false, message: 'Server error: ' + err.message });
+  }
+});
+
+// Password reset route with captcha validation
+router.post('/reset-password', async (req, res) => {
+  const { email, newPassword, captchaResult, num1, num2, operation } = req.body;
+
+  if (!email || !newPassword || !captchaResult || !num1 || !num2 || !operation) {
+    return res.json({ success: false, message: 'All fields are required' });
+  }
+
+  // Validate captcha result
+  let validResult;
+  switch (operation) {
+    case 'add':
+      validResult = num1 + num2;
+      break;
+    case 'subtract':
+      validResult = num1 - num2;
+      break;
+    case 'multiply':
+      validResult = num1 * num2;
+      break;
+    case 'divide':
+      if (num2 === 0) {
+        return res.json({ success: false, message: 'Division by zero is not allowed' });
+      }
+      validResult = num1 / num2;
+      break;
+    default:
+      return res.json({ success: false, message: 'Invalid operation' });
+  }
+
+  if (parseFloat(captchaResult) !== validResult) {
+    return res.json({ success: false, message: 'Captcha validation failed' });
+  }
+
+  try {
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update password in database
+    const [result] = await db.query('UPDATE students SET password = ? WHERE email = ?', [hashedPassword, email]);
+
+    if (result.affectedRows === 0) {
+      return res.json({ success: false, message: 'Email not found' });
+    }
+
+    res.json({ success: true, message: 'Password reset successful' });
+  } catch (err) {
+    console.error('Reset password error:', err);
     res.json({ success: false, message: 'Server error: ' + err.message });
   }
 });
