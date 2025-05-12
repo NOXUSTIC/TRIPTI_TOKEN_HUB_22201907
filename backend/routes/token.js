@@ -74,10 +74,10 @@ router.post('/submit-token', async (req, res) => {
     usedTokens += 1;
     remainingTokens -= 1;
 
-    // Insert new token record
+    // Insert new token record with item, quantity, and tokens_confirmed for orders summary and tokens used
     await db.query(
-      'INSERT INTO Food_Table (studentId, mealType, usedTokens, remainingTokens, tokenWeekYear) VALUES (?, ?, ?, ?, ?)',
-      [studentId, mealType, usedTokens, remainingTokens, currentWeekYear]
+      'INSERT INTO Food_Table (studentId, mealType, usedTokens, remainingTokens, tokenWeekYear, item, quantity, tokens_confirmed) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [studentId, mealType, usedTokens, remainingTokens, currentWeekYear, mealType, 1, 1]
     );
 
     res.json({ message: 'Token confirmed', usedTokens, remainingTokens, mealType });

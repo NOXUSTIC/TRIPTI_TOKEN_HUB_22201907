@@ -1,11 +1,5 @@
 # Backend Setup Instructions
 
-1. Make sure you have XAMPP installed and running with MySQL.
-
-2. Create a database named `student_data` in your MySQL server.
-
-3. Run the following SQL to create the `students` table:
-
 ```sql
 CREATE TABLE students (
   id INT AUTO_INCREMENT PRIMARY KEY,

@@ -32,6 +32,7 @@ const AdminPortal = () => {
     // Fetch tokens used
     const tokensResponse = await fetch('http://localhost:5000/api/tokens-used');
     const tokensData = await tokensResponse.json();
+    console.log('Tokens used data:', tokensData);
     if (tokensData.success) {
       setTotalTokensUsed(tokensData.totalTokensUsed);
     } else {

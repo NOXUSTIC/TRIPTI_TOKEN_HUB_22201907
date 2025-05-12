@@ -7,6 +7,7 @@ import StudentPortal from './components/StudentPortal';
 import AdminPortal from './components/AdminPortal';
 import MonthConfiguration from './components/MonthConfiguration';
 import ResetMonthsCaptcha from './components/ResetMonthsCaptcha';
+import TokenSelection from './components/TokenSelection';
 
 function App() {
   useEffect(() => {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/admin-portal" element={<AdminPortal />} />
         <Route path="/month-configuration" element={<MonthConfiguration />} />
         <Route path="/reset-months-captcha" element={<ResetMonthsCaptcha />} />
+        <Route path="/token-selection" element={<TokenSelection />} />
       </Routes>
     </Router>
   );
